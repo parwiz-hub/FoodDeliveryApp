@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'bloc/cartListBloc.dart';
+import 'mywidget.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,30 +47,14 @@ class FirstHalf extends StatelessWidget {
       child: Column(
         children: <Widget>[
           CoustomAppBar(),
-        ],
-      ),
-    );
-  }
-}
-
-class CoustomAppBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Icon(Icons.menu),
-          Container(
-            margin: EdgeInsets.only(right: 30),
-            child: Text('0'),
-            padding: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Colors.yellow[800],
-              borderRadius: BorderRadius.circular(50),
-            ),
-          )
+          SizedBox(
+            width: 30,
+          ),
+          title(),
+          SizedBox(
+            width: 30,
+          ),
+          searchBar(),
         ],
       ),
     );
