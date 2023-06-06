@@ -55,6 +55,8 @@ class FirstHalf extends StatelessWidget {
             width: 30,
           ),
           searchBar(),
+          SizedBox(width: 30,),
+          category(),
         ],
       ),
     );
