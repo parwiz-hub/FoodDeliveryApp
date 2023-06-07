@@ -85,7 +85,7 @@ Widget searchBar() {
 
 Widget category() {
   return Container(
-    height: 190,
+    height: 185,
     child: ListView(
       scrollDirection: Axis.horizontal,
       children: <Widget>[
@@ -97,10 +97,28 @@ Widget category() {
         ),
         CategoryListItem(
           categoryIcon: Icons.bug_report,
+          categoryName: "Pizza",
+          availability: 12,
+          selected: false,
+        ),
+        CategoryListItem(
+          categoryIcon: Icons.bug_report,
+          categoryName: "Rolls",
+          availability: 12,
+          selected: false,
+        ),
+        CategoryListItem(
+          categoryIcon: Icons.bug_report,
           categoryName: "Burgers",
           availability: 12,
           selected: false,
-        )
+        ),
+        CategoryListItem(
+          categoryIcon: Icons.bug_report,
+          categoryName: "Burgers",
+          availability: 12,
+          selected: false,
+        ),
       ],
     ),
   );
@@ -121,26 +139,25 @@ class CategoryListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 20, top: 15),
+      margin: EdgeInsets.only(
+        right: 20,
+      ),
       padding: EdgeInsets.fromLTRB(10, 10, 10, 20),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        color: selected ? Color(0xFFfeb324) : Colors.white,
-        border: Border.all(
-          color: selected
-              ? Colors.transparent
-              : Color.fromARGB(121, 158, 158, 158),
-          width: 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: const Color.fromARGB(189, 158, 158, 158),
-            blurRadius: 15,
-            offset: Offset(25, 0),
-            spreadRadius: 5,
+          borderRadius: BorderRadius.circular(50),
+          color: selected ? Color(0xFFfeb324) : Colors.white,
+          border: Border.all(
+            color: selected ? Colors.transparent : Colors.grey.shade200,
+            width: 1.5,
           ),
-        ],
-      ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade100,
+              blurRadius: 15,
+              offset: Offset(25, 0),
+              spreadRadius: 5,
+            ),
+          ]),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -148,7 +165,7 @@ class CategoryListItem extends StatelessWidget {
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(50),
                 border: Border.all(
                   color: selected ? Colors.transparent : Colors.grey,
                   width: 1.5,
