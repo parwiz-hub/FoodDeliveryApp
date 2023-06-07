@@ -107,6 +107,45 @@ class Items extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    double containerPading = 45;
+    double contanerBorderRadius = 10;
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(
+            left: LeftAligned ? 0 : containerPading,
+            right: LeftAligned ? containerPading : 0,
+          ),
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.horizontal(
+                    left: LeftAligned
+                        ? Radius.circular(0)
+                        : Radius.circular(contanerBorderRadius),
+                    right: LeftAligned
+                        ? Radius.circular(contanerBorderRadius)
+                        : Radius.circular(0),
+                  ),
+                  child: Image.network(
+                    imagurl,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
