@@ -78,8 +78,21 @@ class ItemContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
+
+    addTocart(FoodItem foodItem) {
+      bloc.addToList(foodItem);
+      final snackBar = SnackBar(
+        content: Text("${foodItem.title} add to List"),
+        duration: Duration(milliseconds: 550),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        addTocart(foodItem);
+      },
       child: Items(
         hotel: foodItem.hotel,
         itemName: foodItem.title,
