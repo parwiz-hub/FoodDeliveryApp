@@ -44,6 +44,7 @@ class CartBody extends StatelessWidget {
       child: Column(
         children: <Widget>[
           CustomAppBar(),
+          
         ],
       ),
     );
@@ -64,9 +65,20 @@ class CustomAppBar extends StatelessWidget {
               size: 30,
             ),
             onTap: () {
+              //for go back
               Navigator.pop(context);
             },
           ),
+        ),
+        GestureDetector(
+          child: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Icon(
+              CupertinoIcons.delete,
+              size: 35,
+            ),
+          ),
+          onTap: () {},
         )
       ],
     );
