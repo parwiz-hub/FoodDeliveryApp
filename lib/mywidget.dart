@@ -3,6 +3,7 @@ import 'package:food_dilevery/bloc/cartListBloc.dart';
 import '../model/fooditem.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import '../bloc/provider.dart';
+import '../model/Cart.dart';
 
 class CoustomAppBar extends StatelessWidget {
   @override
@@ -31,7 +32,15 @@ class CoustomAppBar extends StatelessWidget {
   GestureDetector buildGestureDetector(
       int lenght, BuildContext context, List<FoodItem> foodItems) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        // if lent > 0  mean is not empty and alow user to go to cart
+        if (lenght > 0) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Cart()));
+        } else {
+          return;
+        }
+      },
       child: Container(
         margin: EdgeInsets.only(right: 30),
         child: Text(lenght.toString()),
