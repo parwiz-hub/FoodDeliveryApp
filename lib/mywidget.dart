@@ -1,29 +1,45 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:food_dilevery/bloc/cartListBloc.dart';
+import '../model/fooditem.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
+import '../bloc/provider.dart';
 
 class CoustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
     return Container(
       margin: EdgeInsets.only(bottom: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Icon(Icons.menu),
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              margin: EdgeInsets.only(right: 30),
-              child: Text('0'),
-              padding: EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: Colors.yellow[800],
-                borderRadius: BorderRadius.circular(50),
-              ),
-            ),
+          StreamBuilder(
+            stream: bloc.listStream,
+            builder: (context, snapshot) {
+              List<FoodItem>? foodItems = snapshot.data;
+              // ignore: unnecessary_null_comparison
+              int length = foodItems != null ? foodItems.length : 0;
+              return buildGestureDetector(length, context, foodItems!);
+            },
           )
         ],
+      ),
+    );
+  }
+
+  GestureDetector buildGestureDetector(
+      int lenght, BuildContext context, List<FoodItem> foodItems) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        margin: EdgeInsets.only(right: 30),
+        child: Text(lenght.toString()),
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.yellow[800],
+          borderRadius: BorderRadius.circular(50),
+        ),
       ),
     );
   }
@@ -206,4 +222,3 @@ class CategoryListItem extends StatelessWidget {
     );
   }
 }
-
