@@ -21,6 +21,7 @@ class Cart extends StatelessWidget {
                 foodItems,
               ),
             ),
+            bottomNavigationBar: BottomBar(foodItems),
           );
         } else {
           return Container(
@@ -29,6 +30,112 @@ class Cart extends StatelessWidget {
         }
       },
     );
+  }
+}
+
+class BottomBar extends StatelessWidget {
+  final List<FoodItem> foodItems;
+  BottomBar(this.foodItems);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 35, right: 25),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          totalamount(foodItems),
+          Divider(
+            height: 1,
+            color: Colors.grey.shade700,
+          ),
+          persons(),
+          NxtBumonBar(),
+        ],
+      ),
+    );
+  }
+
+  Container NxtBumonBar() {
+    return Container(
+      margin: EdgeInsets.only(right: 25),
+      padding: EdgeInsets.all(25),
+      decoration: BoxDecoration(
+        color: Color(0xFFfeb324),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            '15-25 min',
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 14,
+            ),
+          ),
+          Text(
+            'Next',
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 16,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Container persons() {
+    return Container(
+      margin: EdgeInsets.only(right: 10),
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            'Persons',
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          costompersons(),
+        ],
+      ),
+    );
+  }
+
+  Container totalamount(List<FoodItem> foodItem) {
+    return Container(
+      margin: EdgeInsets.only(right: 10),
+      padding: EdgeInsets.all(25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            'Total:',
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+          Text(
+            '\$${returnTotalAmount(foodItems)}',
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 28,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String returnTotalAmount(List<FoodItem> foodItems) {
+    double totalamount = 0.0;
+    for (int i = 0; i < foodItems.length; i++) {
+      totalamount = totalamount + foodItems[i].price * foodItems[i].quntity;
+    }
+    return totalamount.toStringAsFixed(2);
   }
 }
 
@@ -200,6 +307,76 @@ class itemcontent extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
           )
+        ],
+      ),
+    );
+  }
+}
+
+class costompersons extends StatefulWidget {
+  State<costompersons> createState() => _costompersonsState();
+}
+
+class _costompersonsState extends State<costompersons> {
+  int NumberOfPersons = 1;
+  double _botomWidth = 30;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 25),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300, width: 2),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      padding: EdgeInsets.symmetric(vertical: 5),
+      width: 120,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          SizedBox(
+            width: _botomWidth,
+            height: _botomWidth,
+            child: ElevatedButton(
+              child: Text(
+                '-',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  if (NumberOfPersons > 1) {
+                    NumberOfPersons--;
+                  }
+                });
+              },
+            ),
+          ),
+          Text(
+            NumberOfPersons.toString(),
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+          ),
+          SizedBox(
+            width: _botomWidth,
+            height: _botomWidth,
+            child: ElevatedButton(
+              child: Text(
+                '+',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  if (NumberOfPersons > 1) {
+                    NumberOfPersons++;
+                  }
+                });
+              },
+            ),
+          ),
         ],
       ),
     );
