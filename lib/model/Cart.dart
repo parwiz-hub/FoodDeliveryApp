@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../bloc/cartListBloc.dart';
 import 'package:flutter/material.dart';
+import '../bloc/listColorStyle.dart';
 import 'fooditem.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 
@@ -248,14 +249,20 @@ class DragTargetWidget extends StatefulWidget {
 
 class _DragTargetWidgetState extends State<DragTargetWidget> {
   final CartListBloc listBloc = BlocProvider.getBloc<CartListBloc>();
+  final ColorBloc colorBloc = BlocProvider.getBloc<ColorBloc>();
   @override
   Widget build(BuildContext context) {
     return DragTarget<FoodItem>(
       onWillAccept: (FoodItem) {
+        colorBloc.setColor(Colors.red);
         return true;
       },
       onAccept: (FoodItem foodItem) {
         listBloc.removeFromList(foodItem);
+        colorBloc.setColor(Colors.white);
+      },
+      onLeave: (FoodItem) {
+        colorBloc.setColor(Colors.white);
       },
       builder: (context, incoming, rejected) {
         return Padding(
@@ -318,13 +325,21 @@ class DragibleChildFedback extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorBloc colorBloc = BlocProvider.getBloc<ColorBloc>();
     return Opacity(
       opacity: 0.7,
       child: Material(
-        child: Container(
-          margin: EdgeInsets.only(bottom: 25),
-          child: itemcontent(foodItem: foodItem),
-        ),
+        child: StreamBuilder(
+            stream: colorBloc.colorStream,
+            builder: (context, snapshot) {
+              return Container(
+                margin: EdgeInsets.only(bottom: 25),
+                child: itemcontent(foodItem: foodItem),
+                decoration: BoxDecoration(
+                  color: snapshot.data != null ? snapshot.data : Colors.white,
+                ),
+              );
+            }),
       ),
     );
   }
