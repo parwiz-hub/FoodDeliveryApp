@@ -235,17 +235,37 @@ class CustomAppBar extends StatelessWidget {
             },
           ),
         ),
-        GestureDetector(
-          child: Padding(
-            padding: EdgeInsets.all(5.0),
-            child: Icon(
-              CupertinoIcons.delete,
-              size: 35,
-            ),
-          ),
-          onTap: () {},
-        )
+        DragTargetWidget(),
       ],
+    );
+  }
+}
+
+class DragTargetWidget extends StatefulWidget {
+  @override
+  State<DragTargetWidget> createState() => _DragTargetWidgetState();
+}
+
+class _DragTargetWidgetState extends State<DragTargetWidget> {
+  final CartListBloc listBloc = BlocProvider.getBloc<CartListBloc>();
+  @override
+  Widget build(BuildContext context) {
+    return DragTarget<FoodItem>(
+      onWillAccept: (FoodItem) {
+        return true;
+      },
+      onAccept: (FoodItem foodItem) {
+        listBloc.removeFromList(foodItem);
+      },
+      builder: (context, incoming, rejected) {
+        return Padding(
+          padding: EdgeInsets.all(5.0),
+          child: Icon(
+            CupertinoIcons.delete,
+            size: 35,
+          ),
+        );
+      },
     );
   }
 }
@@ -257,9 +277,55 @@ class CartListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // this widgwt from bloc pcage use for dragg
+    return Draggable(
+      // this data conect whit dragibleWidget to specfic drag targit
+      data: foodItem,
+      maxSimultaneousDrags: 1,
+      feedback: DragibleChildFedback(foodItem: foodItem),
+      child: DragibleChild(foodItem: foodItem),
+      childWhenDragging: foodItem.quntity > 1
+          ? DragibleChild(foodItem: foodItem)
+          : Container(),
+    );
+  }
+}
+
+class DragibleChild extends StatelessWidget {
+  const DragibleChild({
+    super.key,
+    required this.foodItem,
+  });
+
+  final FoodItem foodItem;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 25),
       child: itemcontent(foodItem: foodItem),
+    );
+  }
+}
+
+class DragibleChildFedback extends StatelessWidget {
+  const DragibleChildFedback({
+    super.key,
+    required this.foodItem,
+  });
+
+  final FoodItem foodItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: 0.7,
+      child: Material(
+        child: Container(
+          margin: EdgeInsets.only(bottom: 25),
+          child: itemcontent(foodItem: foodItem),
+        ),
+      ),
     );
   }
 }
