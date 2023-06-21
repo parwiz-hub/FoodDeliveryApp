@@ -7,7 +7,6 @@ import '../model/fooditem.dart';
 
 class CartListBloc extends BlocBase {
   CartListBloc();
-
   var _listController = BehaviorSubject<List<FoodItem>>.seeded([]);
   CartProvider provider = CartProvider();
 //output

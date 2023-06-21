@@ -15,6 +15,7 @@ class CoustomAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Icon(Icons.menu),
+          // use stramBulder for change UI Without neded setState
           StreamBuilder(
             stream: bloc.listStream,
             builder: (context, snapshot) {

@@ -13,10 +13,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // can recovery bloc in your widget whit help of BlocProvider
     return BlocProvider(
       blocs: [
+        // bloc i return cartListBloc()
       Bloc((i) => CartListBloc()),
       Bloc(
+        // return ColorBloc
         (i)=>ColorBloc()
       )
       ],
@@ -42,8 +45,9 @@ class Home extends StatelessWidget {
               SizedBox(
                 height: 45,
               ),
+              // return every food item and pass food ithem to ItemContainer
               for (var foodItem in fooditemList.foodItems)
-                ItemContainer(foodItem: foodItem)
+                ItemContainer(foodItem: foodItem),
             ],
           ),
         ),
@@ -69,7 +73,7 @@ class FirstHalf extends StatelessWidget {
           ),
           searchBar(),
           SizedBox(
-            width: 30,
+            width: 40,
           ),
           category(),
         ],
@@ -85,9 +89,10 @@ class ItemContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
-
+  // if clic item ass to cart
     addTocart(FoodItem foodItem) {
       bloc.addToList(foodItem);
+      // use snak nar for print this text
       final snackBar = SnackBar(
         content: Text("${foodItem.title} add to List"),
         duration: Duration(milliseconds: 550),

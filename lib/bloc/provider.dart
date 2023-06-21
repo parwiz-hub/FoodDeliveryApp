@@ -7,7 +7,7 @@ class CartProvider {
 
   List<FoodItem> addToList(FoodItem foodItem) {
     bool isPresent = false;
-    // for increse  item selected towice add id
+    // for increse  same ithem and avot to repet same ithem
     if (foodItems.length > 0) {
       for (int i = 0; i < foodItems.length; i++) {
         if (foodItems[i].id == foodItem.id) {

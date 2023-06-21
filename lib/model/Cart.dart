@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import '../bloc/cartListBloc.dart';
 import 'package:flutter/material.dart';
 import '../bloc/listColorStyle.dart';
@@ -134,6 +133,7 @@ class BottomBar extends StatelessWidget {
   String returnTotalAmount(List<FoodItem> foodItems) {
     double totalamount = 0.0;
     for (int i = 0; i < foodItems.length; i++) {
+      // listing total price
       totalamount = totalamount + foodItems[i].price * foodItems[i].quntity;
     }
     return totalamount.toStringAsFixed(2);
@@ -161,7 +161,7 @@ class CartBody extends StatelessWidget {
       ),
     );
   }
-
+// if ithem exest show list ithem
   ListView fooditemList() {
     return ListView.builder(
       itemCount: foodItems.length,
@@ -170,7 +170,7 @@ class CartBody extends StatelessWidget {
       },
     );
   }
-
+// if dont exest ithem prent this text
   Container noitemcontainer() {
     return Container(
       child: Center(
@@ -375,7 +375,7 @@ class itemcontent extends StatelessWidget {
                   color: Colors.black,
                 ),
                 children: [
-                  // quntity(number of seolected)
+                  // quntity(number of selected)
                   TextSpan(text: foodItem.quntity.toString()),
                   TextSpan(text: 'x'),
                   TextSpan(text: foodItem.title),
